@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "6fzl3S9SU3UUUpdi32uKCFb3BoOgRme/3sJB4AX2L7Bv7hbXcSPI/Fh3DB91rwQuRgel/cRU1Rd4KLQJpt1Msg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\armis\\Documents\\QRCodeGenerator\\qrGen\\qrGen.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\armis\\.nuget\\packages\\magick.net.core\\12.2.2\\magick.net.core.12.2.2.nupkg.sha512",
+    "C:\\Users\\armis\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\armis\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\armis\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512",
+    "C:\\Users\\armis\\.nuget\\packages\\system.drawing.common\\5.0.3\\system.drawing.common.5.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

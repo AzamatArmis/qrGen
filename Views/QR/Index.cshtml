@@ -1,0 +1,111 @@
+﻿<form id="form">
+    <div class="form-group">
+        <label for="text">Enter Text:</label>
+        <input type="text" class="form-control" id="text" name="text">
+    </div>
+    <button type="submit" class="btn btn-primary">Generate QR Code</button>
+</form>
+
+<div id="qr-code-container" style="width: 300px; height: 300px;">
+    <!-- QR code will be displayed here -->
+</div>
+<button id="show-download-variants-button" class="btn btn-primary" style="display: none;">Download QR Code</button><p></p>
+<button id="download-svg-button" class="btn btn-primary" style="display: none;">SVG</button><p></p>
+<button id="download-jpg-button" class="btn btn-primary" style="display: none;">JPG</button><p></p>
+<button id="download-png-button" class="btn btn-primary" style="display: none;">PNG</button><p></p>
+
+
+<script>
+    $(document).ready(function () {
+        $('#form').submit(function (e) {
+            e.preventDefault();
+            var text = $('#text').val();
+            if (!text) {
+                alert("Please enter some text");
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/QR/GenerateQRCode',
+                data: { text: text },
+                success: function (data) {
+                    $('#qr-code-container').html(data.qrCode);
+                    $('#show-download-variants-button').show();
+                }
+            });
+        });
+        
+        $('#show-download-variants-button').click(function () {
+            $('#download-svg-button').show();
+            $('#download-jpg-button').show();
+            $('#download-png-button').show();
+        });
+
+        $('#download-svg-button').click(function () {
+            var text = $('#text').val();
+            $.ajax({
+                type: 'GET',
+                url: '/QR/Generate',
+                data: { text: text, format: 'svg' },
+                success: function (data) {
+                    var svg = data.svgImage;
+                    var blob = new Blob([svg], { type: "image/svg+xml" });
+                    var now = new Date();
+                    var link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `QRcode${now.getHours()}${now.getMinutes()}${now.getSeconds()}.svg`;
+                    link.click();
+                }
+            });
+        });
+
+        $('#download-jpg-button').click(function () {
+            var text = $('#text').val();
+            $.ajax({
+                type: 'GET',
+                url: '/QR/Generate',
+                data: { text: text, format: 'jpeg' },
+                success: function (data) {
+                    var now = new Date();
+                    var link = document.createElement("a");
+                    link.href = data.jpegImage;
+                    link.download = `QRcode${now.getHours()}${now.getMinutes()}${now.getSeconds()}.jpeg`;
+                    link.click();
+                }
+            });
+        });
+
+        $('#download-png-button').click(function () {
+            var text = $('#text').val();
+            $.ajax({
+                type: 'GET',
+                url: '/QR/Generate',
+                data: { text: text, format: 'png' },
+                success: function (data) {
+                    var now = new Date();
+                    var link = document.createElement("a");
+                    link.href = data.pngImage;
+                    link.download = `QRcode${now.getHours()}${now.getMinutes()}${now.getSeconds()}.png`;
+                    link.click();
+                }
+            });
+        });
+
+        function download(data, filename, type) {
+            var a = document.createElement("a");
+            a.href = data;
+            a.download = filename;
+            a.click();
+        }
+
+    });
+    let observer = new MutationObserver(function() {
+
+    });
+
+    observer.observe(document.getElementById('qr-code-container'), {
+        childList: true
+    });
+
+
+</script>
